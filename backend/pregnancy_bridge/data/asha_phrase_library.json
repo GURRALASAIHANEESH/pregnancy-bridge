@@ -1,0 +1,294 @@
+{
+    "version": "2.0.0",
+    "last_updated": "2026-02-04",
+    "description": "Controlled phrase library for ASHA worker messaging. No code-switching. Field-tested translations.",
+    "phrases": [
+        {
+            "id": "urgent_action_header",
+            "category": "header",
+            "en": "URGENT ACTION NEEDED",
+            "hi": "तत्काल कार्रवाई आवश्यक",
+            "te": "అత్యవసర చర్య అవసరం"
+        },
+        {
+            "id": "problem_header",
+            "category": "header",
+            "en": "What is the problem:",
+            "hi": "समस्या क्या है:",
+            "te": "సమస్య ఏమిటి:"
+        },
+        {
+            "id": "action_header",
+            "category": "header",
+            "en": "What to do:",
+            "hi": "क्या करना है:",
+            "te": "ఏమి చేయాలి:"
+        },
+        {
+            "id": "warning_signs_header",
+            "category": "header",
+            "en": "Warning signs to watch:",
+            "hi": "देखने के लिए चेतावनी संकेत:",
+            "te": "గమనించవలసిన హెచ్చరిక సంకేతాలు:"
+        },
+        {
+            "id": "high_bp_protein",
+            "category": "condition",
+            "en": "Mother has high blood pressure and protein in urine.",
+            "hi": "माँ को उच्च रक्तचाप है और पेशाब में प्रोटीन है।",
+            "te": "తల్లికి అధిక రక్తపోటు మరియు మూత్రంలో ప్రోటీन్ ఉంది।"
+        },
+        {
+            "id": "high_bp_only",
+            "category": "condition",
+            "en": "Mother has high blood pressure.",
+            "hi": "माँ को उच्च रक्तचाप है।",
+            "te": "తల్లికి అధిక రక్తపోటు ఉంది।"
+        },
+        {
+            "id": "fits_danger",
+            "category": "risk",
+            "en": "This can cause fits and harm mother and baby.",
+            "hi": "इससे दौरे पड़ सकते हैं और माँ और बच्चे को नुकसान हो सकता है।",
+            "te": "ఇది మూర్ఛలకు కారణమై తల్లి మరియు బిడ్డకు హాని కలిగించవచ్చు।"
+        },
+        {
+            "id": "life_threatening",
+            "category": "risk",
+            "en": "This is life-threatening for mother and baby.",
+            "hi": "यह माँ और बच्चे के लिए जानलेवा है।",
+            "te": "ఇది తల్లి మరియు బిడ్డ ప్రాణాలకు ప్రమాదకరం।"
+        },
+        {
+            "id": "hospital_today",
+            "category": "action",
+            "en": "Take mother to hospital TODAY.",
+            "hi": "माँ को आज अस्पताल ले जाएं।",
+            "te": "తల్లిని ఈరోజే ఆసుపత్రికి తీసుకెళ్ళండి।"
+        },
+        {
+            "id": "hospital_this_week",
+            "category": "action",
+            "en": "Take mother to hospital this week.",
+            "hi": "इस सप्ताह माँ को अस्पताल ले जाएं।",
+            "te": "ఈ వారం తల్లిని ఆసుపత్రికి తీసుకెళ్ళండి।"
+        },
+        {
+            "id": "do_not_delay",
+            "category": "action",
+            "en": "Do not delay — this is urgent.",
+            "hi": "देरी न करें — यह अत्यावश्यक है।",
+            "te": "ఆలస్యం చేయవద్దు — ఇది అత్యవసరం।"
+        },
+        {
+            "id": "arrange_ambulance",
+            "category": "action",
+            "en": "Arrange ambulance if possible.",
+            "hi": "संभव हो तो एम्बुलेंस की व्यवस्था करें।",
+            "te": "వీలైతే అంబులెన్స్ ఏర్పాటు చేయండి।"
+        },
+        {
+            "id": "book_appointment",
+            "category": "action",
+            "en": "Book appointment with doctor.",
+            "hi": "डॉक्टर से अपॉइंटमेंट बुक करें।",
+            "te": "వైద్యునితో అపాయింట్‌మెంట్ బుక్ చేయండి।"
+        },
+        {
+            "id": "explain_symptoms",
+            "category": "action",
+            "en": "Explain all symptoms to doctor.",
+            "hi": "डॉक्टर को सभी लक्षण बताएं।",
+            "te": "అన్ని లక్షణాలను వైద్యునికి వివరించండి।"
+        },
+        {
+            "id": "weak_blood_low_hb",
+            "category": "condition",
+            "en": "Mother's blood is very weak.",
+            "hi": "माँ का खून बहुत कमजोर है।",
+            "te": "తల్లి రక్తం చాలా బలహీనంగా ఉంది।"
+        },
+        {
+            "id": "cannot_carry_oxygen",
+            "category": "risk",
+            "en": "Weak blood cannot carry enough oxygen to mother and baby.",
+            "hi": "कमजोर खून माँ और बच्चे को पर्याप्त ऑक्सीजन नहीं पहुंचा सकता।",
+            "te": "బలహీనమైన రక్తం తల్లి మరియు బిడ్డకు తగినంత ఆక్సిజన్ తీసుకెళ్లలేదు।"
+        },
+        {
+            "id": "feeling_breathless",
+            "category": "condition",
+            "en": "Mother is feeling breathless.",
+            "hi": "माँ को सांस फूल रही है।",
+            "te": "తల్లికి ఊపిరి ఆడకపోవడం అనిపిస్తుంది।"
+        },
+        {
+            "id": "low_platelets",
+            "category": "condition",
+            "en": "Mother has very low platelets.",
+            "hi": "माँ में प्लेटलेट्स बहुत कम हैं।",
+            "te": "తల్లికి ప్లేట్‌లెట్స్ చాలా తక్కువగా ఉన్నాయి।"
+        },
+        {
+            "id": "bleeding_danger_delivery",
+            "category": "risk",
+            "en": "This can cause dangerous bleeding during delivery.",
+            "hi": "इससे प्रसव के दौरान खतरनाक रक्तस्राव हो सकता है।",
+            "te": "ఇది ప్రసవ సమయంలో ప్రమాదకరమైన రక్తస్రావానికి కారణం కావచ్చు।"
+        },
+        {
+            "id": "infection_suspected",
+            "category": "condition",
+            "en": "Mother may have serious infection.",
+            "hi": "माँ को गंभीर संक्रमण हो सकता है।",
+            "te": "తల్లికి తీవ్రమైన ఇన్‌ఫెక్షన్ ఉండవచ్చు।"
+        },
+        {
+            "id": "infection_spread_quickly",
+            "category": "risk",
+            "en": "Infection can spread quickly and harm baby.",
+            "hi": "संक्रमण तेजी से फैल सकता है और बच्चे को नुकसान पहुंचा सकता है।",
+            "te": "ఇన్‌ఫెక్షన్ త్వరగా వ్యాపించి బిడ్డకు హాని కలిగించవచ్చు।"
+        },
+        {
+            "id": "severe_headache",
+            "category": "warning",
+            "en": "Severe headache that does not go away",
+            "hi": "गंभीर सिरदर्द जो दूर नहीं होता",
+            "te": "తగ్గని తీవ్రమైన తలనొప్పి"
+        },
+        {
+            "id": "vision_problems",
+            "category": "warning",
+            "en": "Vision problems or seeing spots",
+            "hi": "दृष्टि समस्याएं या धब्बे दिखना",
+            "te": "చూపు సమస్యలు లేదా మచ్చలు కనిపించడం"
+        },
+        {
+            "id": "fits_convulsions",
+            "category": "warning",
+            "en": "Fits or convulsions",
+            "hi": "दौरे या मरोड़",
+            "te": "మూర్ఛలు లేదా మెలిపాట"
+        },
+        {
+            "id": "heavy_bleeding",
+            "category": "warning",
+            "en": "Heavy bleeding from vagina",
+            "hi": "योनि से अत्यधिक रक्तस्राव",
+            "te": "యోని నుండి తీవ్రమైన రక్తస్రావం"
+        },
+        {
+            "id": "severe_stomach_pain",
+            "category": "warning",
+            "en": "Severe stomach pain",
+            "hi": "गंभीर पेट दर्द",
+            "te": "తీవ్రమైన కడుపు నొప్పి"
+        },
+        {
+            "id": "baby_not_moving",
+            "category": "warning",
+            "en": "Baby not moving as usual",
+            "hi": "बच्चा सामान्य रूप से हिलडुल नहीं रहा",
+            "te": "బిడ్డ ఎప్పటిలా కదలడం లేదు"
+        },
+        {
+            "id": "fever_high",
+            "category": "warning",
+            "en": "High fever",
+            "hi": "तेज बुखार",
+            "te": "తీవ్రమైన జ్వరం"
+        },
+        {
+            "id": "if_any_happen_immediately",
+            "category": "action",
+            "en": "If any of these happen, go to hospital IMMEDIATELY.",
+            "hi": "यदि इनमें से कोई भी हो तो तुरंत अस्पताल जाएं।",
+            "te": "వీటిలో ఏదైనా జరిగితే వెంటనే ఆసుపత్రికి వెళ్ళండి।"
+        },
+        {
+            "id": "early_treatment_prevents",
+            "category": "education",
+            "en": "Early treatment prevents serious problems.",
+            "hi": "शीघ्र उपचार गंभीर समस्याओं को रोकता है।",
+            "te": "ముందస్తు చికిత్స తీవ్రమైన సమస్యలను నివారిస్తుంది।"
+        },
+        {
+            "id": "keep_safe",
+            "category": "education",
+            "en": "This will keep mother and baby safe.",
+            "hi": "इससे माँ और बच्चा सुरक्षित रहेंगे।",
+            "te": "ఇది తల్లి మరియు బిడ్డను సురక్షితంగా ఉంచుతుంది।"
+        },
+        {
+            "id": "old_lab_note_30d",
+            "category": "lab_warning",
+            "en": "Note: Lab report is more than 1 month old. Doctor may need fresh tests.",
+            "hi": "नोट: लैब रिपोर्ट 1 महीने से अधिक पुरानी है। डॉक्टर को नए परीक्षण की आवश्यकता हो सकती है।",
+            "te": "గమనిక: ల్యాబ్ రిపోర్ట్ 1 నెల కంటే పాతది. వైద్యునికి కొత్త పరీక్షలు అవసరం కావచ్చు।"
+        },
+        {
+            "id": "old_lab_note_90d",
+            "category": "lab_warning",
+            "en": "IMPORTANT: Lab report is very old. Fresh blood tests are needed.",
+            "hi": "महत्वपूर्ण: लैब रिपोर्ट बहुत पुरानी है। नए रक्त परीक्षण की आवश्यकता है।",
+            "te": "ముఖ్యమైనది: ల్యాబ్ రిపోర్ట్ చాలా పాతది. కొత్త రక్త పరీక్షలు అవసరం।"
+        },
+        {
+            "id": "multiple_problems",
+            "category": "condition",
+            "en": "Mother has multiple health problems that need attention.",
+            "hi": "माँ को कई स्वास्थ्य समस्याएं हैं जिन पर ध्यान देने की आवश्यकता है।",
+            "te": "తల్లికి శ్రద్ధ అవసరమైన అనేక ఆరోగ్య సమస్యలు ఉన్నాయి।"
+        },
+        {
+            "id": "doctor_check_needed",
+            "category": "action",
+            "en": "Doctor check-up is needed.",
+            "hi": "डॉक्टर की जांच आवश्यक है।",
+            "te": "వైద్య పరీక్ష అవసరం."
+        },
+        {
+            "id": "urgent_referral",
+            "category": "action",
+            "en": "Urgent referral to hospital required.",
+            "hi": "अस्पताल में तत्काल रेफरल आवश्यक है।",
+            "te": "ఆసుపత్రికి అత్యవసర రిఫరల్ అవసరం."
+        },
+        {
+            "id": "neurological_symptoms",
+            "category": "condition",
+            "en": "Mother has headache and vision problems.",
+            "hi": "माँ को सिरदर्द और दृष्टि समस्याएं हैं।",
+            "te": "తల్లికి తలనొప్పి మరియు చూపు సమస్యలు ఉన్నాయి।"
+        },
+        {
+            "id": "respiratory_symptoms",
+            "category": "condition",
+            "en": "Mother has breathing difficulty.",
+            "hi": "माँ को सांस लेने में कठिनाई है।",
+            "te": "తల్లికి శ్వాస తీసుకోవడంలో ఇబ్బంది ఉంది।"
+        },
+        {
+            "id": "gi_symptoms",
+            "category": "condition",
+            "en": "Mother has severe stomach pain and vomiting.",
+            "hi": "माँ को गंभीर पेट दर्द और उल्टी है।",
+            "te": "తల్లికి తీవ్రమైన కడుపు నొప్పి మరియు వాంతులు ఉన్నాయి।"
+        },
+        {
+            "id": "worsening_condition",
+            "category": "risk",
+            "en": "Mother's condition is getting worse.",
+            "hi": "माँ की स्थिति बिगड़ रही है।",
+            "te": "తల్లి పరిస్థితి మరింత దిగజారుతోంది।"
+        },
+        {
+            "id": "progressive_decline",
+            "category": "risk",
+            "en": "Health has declined over multiple visits.",
+            "hi": "कई बार की जांच में स्वास्थ्य में गिरावट आई है।",
+            "te": "అనేక సందర్శనలలో ఆరోగ్యం క్షీణించింది।"
+        }
+    ]
+}

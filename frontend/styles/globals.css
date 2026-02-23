@@ -1,0 +1,5 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* This file mirrors app/globals.css — kept for any tooling that references styles/ directly */

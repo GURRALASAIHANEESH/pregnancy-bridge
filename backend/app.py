@@ -1,4 +1,4 @@
-"""
+﻿"""
 PregnancyBridge Backend API
 ===========================
 POLICY: Rule engine is authoritative. MedGemma advice is advisory;
@@ -32,7 +32,7 @@ from pathlib import Path
 from typing import Optional, Dict, Any
 import logging
 
-# ── Path setup ────────────────────────────────────────────────────────────────
+# â”€â”€ Path setup â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))  # D:/MedGemma
 sys.path.insert(0, str(Path(__file__).parent.parent))          # D:/MedGemma/src
 
@@ -44,14 +44,14 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# ── Logging ───────────────────────────────────────────────────────────────────
+# â”€â”€ Logging â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
 
-# ── pregnancy_bridge imports ──────────────────────────────────────────────────
+# â”€â”€ pregnancy_bridge imports â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 from pregnancy_bridge.modules.risk_engine import assess_risk as assess_risk_engine
 from pregnancy_bridge.modules.symptom_risk_engine import SymptomRiskEngine
 from pregnancy_bridge.modules.medgemma_bridge import explain_context
@@ -60,15 +60,15 @@ from pregnancy_bridge.modules.symptom_intake import SymptomIntake
 from pregnancy_bridge.modules.ocr_utils import perform_ocr
 from pregnancy_bridge.modules.clinical_parser import extract_clinical_fields
 
-# FIX 1: Import extractor functions — do NOT call get_clinical_reasoner() here.
-# Calling it at module level would trigger model load at import time → OOM crash.
+# FIX 1: Import extractor functions â€” do NOT call get_clinical_reasoner() here.
+# Calling it at module level would trigger model load at import time â†’ OOM crash.
 from pregnancy_bridge.modules.medgemma_extractor import (
     get_clinical_reasoner,
     load_model_async,          # background thread loader
     get_backend_status,        # for /health endpoint
 )
 
-# ── Environment variables ─────────────────────────────────────────────────────
+# â”€â”€ Environment variables â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 # FIX 2: No hard raise at module level. Log warnings instead.
 # Server starts regardless; affected endpoints return 503 if config missing.
 
@@ -95,7 +95,7 @@ MEDGEMMA_TIMEOUT_SEC = int(os.getenv('MEDGEMMA_TIMEOUT_SEC', '2000'))
 ARTIFACTS_DIR = Path('artifacts/backend_runs')
 ARTIFACTS_DIR.mkdir(parents=True, exist_ok=True)
 
-# ── In-memory state ───────────────────────────────────────────────────────────
+# â”€â”€ In-memory state â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 JOB_QUEUE: Dict[str, Any] = {}
 
 # Pending confirmations: keyed by confirmation_token
@@ -103,9 +103,9 @@ JOB_QUEUE: Dict[str, Any] = {}
 PENDING_CONFIRMATIONS: Dict[str, dict] = {}
 
 
-# ════════════════════════════════════════════════════════════════════════════
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 # DATA MODELS
-# ════════════════════════════════════════════════════════════════════════════
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 class AssessmentRequest(BaseModel):
     patient_id: str = Field(..., description="Unique patient identifier")
@@ -157,7 +157,7 @@ class LabConfirmRequest(BaseModel):
     """ANM confirmation of OCR-extracted lab values before risk assessment runs."""
     confirmation_token:           str           = Field(..., description="Token from pending_confirmation response")
     confirmed_hemoglobin:         Optional[float] = Field(None, description="ANM-verified Hb in g/dL")
-    confirmed_platelets_per_ul:   Optional[int]   = Field(None, description="ANM-verified platelet count /µL")
+    confirmed_platelets_per_ul:   Optional[int]   = Field(None, description="ANM-verified platelet count /ÂµL")
     confirmed_bp_systolic:        Optional[int]   = Field(None, description="ANM-verified systolic BP mmHg")
     confirmed_bp_diastolic:       Optional[int]   = Field(None, description="ANM-verified diastolic BP mmHg")
     confirmed_gestational_age:    Optional[int]   = Field(None, description="ANM-verified gestational age in weeks")
@@ -172,9 +172,9 @@ class AssessmentResponse(BaseModel):
     artifacts_path: Optional[str] = None
 
 
-# ════════════════════════════════════════════════════════════════════════════
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 # UTILITY FUNCTIONS (unchanged from original)
-# ════════════════════════════════════════════════════════════════════════════
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 def compute_hmac(data: bytes) -> str:
     return hmac.new(ARTIFACT_HMAC_KEY, data, hashlib.sha256).hexdigest()
@@ -202,9 +202,9 @@ def save_with_fsync(file_path: Path, content: str):
         pass
 
 
-# ════════════════════════════════════════════════════════════════════════════
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 # RULE ENGINE (unchanged from original)
-# ════════════════════════════════════════════════════════════════════════════
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 def run_rule_engine(vitals: dict) -> dict:
     try:
@@ -254,10 +254,10 @@ def run_fallback_rules(vitals: dict) -> dict:
 
     if hb and hb < 7.0:
         risk_level = 'High'; risk_score += 3
-        recommendations.append('CRITICAL: Severe anemia — immediate referral required')
+        recommendations.append('CRITICAL: Severe anemia â€” immediate referral required')
     elif hb and hb < 9.0:
         risk_level = 'High'; risk_score += 2
-        recommendations.append('Severe anemia — immediate iron infusion required')
+        recommendations.append('Severe anemia â€” immediate iron infusion required')
     elif hb and hb < 11.0:
         if risk_level == 'Low': risk_level = 'Medium'
         risk_score += 1
@@ -265,22 +265,22 @@ def run_fallback_rules(vitals: dict) -> dict:
 
     if platelets and platelets < 50_000:
         risk_level = 'High'; risk_score += 3
-        recommendations.append('CRITICAL: Platelets < 50k — urgent hospital referral')
+        recommendations.append('CRITICAL: Platelets < 50k â€” urgent hospital referral')
     elif platelets and platelets < 100_000:
         risk_level = 'High'; risk_score += 2
-        recommendations.append('Low platelet count — referral for evaluation')
+        recommendations.append('Low platelet count â€” referral for evaluation')
 
     if proteinuria and proteinuria not in ['Negative', 'negative', '', 'Not tested', 'nil']:
         if proteinuria in ['+3', '3+', '+2', '2+']:
             risk_level = 'High'; risk_score += 2
-            recommendations.append('URGENT: Significant proteinuria — pre-eclampsia evaluation')
+            recommendations.append('URGENT: Significant proteinuria â€” pre-eclampsia evaluation')
         else:
             if risk_level == 'Low': risk_level = 'Medium'
-            recommendations.append('Trace protein — monitor for pre-eclampsia')
+            recommendations.append('Trace protein â€” monitor for pre-eclampsia')
 
     if not recommendations:
         recommendations = [
-            'All parameters within normal range — continue routine antenatal care',
+            'All parameters within normal range â€” continue routine antenatal care',
             'Next visit in 4 weeks',
             'Maintain healthy diet and regular exercise',
         ]
@@ -289,20 +289,20 @@ def run_fallback_rules(vitals: dict) -> dict:
             'recommendations': recommendations, 'confidence': 1.0}
 
 
-# ════════════════════════════════════════════════════════════════════════════
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 # MEDGEMMA INFERENCE
-# FIX 3: Routes through singleton from medgemma_extractor — NOT from_pretrained
-# ════════════════════════════════════════════════════════════════════════════
+# FIX 3: Routes through singleton from medgemma_extractor â€” NOT from_pretrained
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 def run_medgemma_inference(vitals: dict, run_dir: Path, timeout_sec: int) -> dict:
     """
     Run MedGemma inference via the singleton loaded in medgemma_extractor.
     Falls back gracefully if model is not loaded (returns fallback_triggered=True).
-    Never raises — all exceptions are caught.
+    Never raises â€” all exceptions are caught.
     """
     start_time = time.time()
 
-    # FIX: Use singleton — never call load_medgemma_model() (OOM path)
+    # FIX: Use singleton â€” never call load_medgemma_model() (OOM path)
     try:
         reasoner = get_clinical_reasoner(force_cpu=True)
     except Exception:
@@ -310,12 +310,12 @@ def run_medgemma_inference(vitals: dict, run_dir: Path, timeout_sec: int) -> dic
 
     # If model not loaded, return clean fallback immediately
     if reasoner is None or reasoner.model is None:
-        logger.warning("MedGemma not loaded — skipping AI inference, using rule engine only")
+        logger.warning("MedGemma not loaded â€” skipping AI inference, using rule engine only")
         return {
             'ai_risk': None,
             'ai_recommendations': [],
             'confidence': 0.0,
-            'raw_text': 'MedGemma not loaded — rule engine is authoritative',
+            'raw_text': 'MedGemma not loaded â€” rule engine is authoritative',
             'fallback_triggered': True,
             'inference_time_ms': 0,
         }
@@ -361,9 +361,9 @@ def run_medgemma_inference(vitals: dict, run_dir: Path, timeout_sec: int) -> dic
         }
 
 
-# ════════════════════════════════════════════════════════════════════════════
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 # QC VALIDATION (unchanged logic, minor cleanup)
-# ════════════════════════════════════════════════════════════════════════════
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 def run_qc_validation(rule_decision: dict, ai_result: dict) -> dict:
     qc_result = {'qc_passed': True, 'warnings': [], 'rule_disagreement': False}
@@ -375,13 +375,13 @@ def run_qc_validation(rule_decision: dict, ai_result: dict) -> dict:
     if ai_result.get('confidence', 0) < 0.60:
         qc_result['warnings'].append('Low AI confidence')
     if ai_result.get('fallback_triggered'):
-        qc_result['warnings'].append('MedGemma not available — rule engine only')
+        qc_result['warnings'].append('MedGemma not available â€” rule engine only')
     return qc_result
 
 
-# ════════════════════════════════════════════════════════════════════════════
-# MAIN PROCESSING PIPELINE (background task — unchanged logic)
-# ════════════════════════════════════════════════════════════════════════════
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+# MAIN PROCESSING PIPELINE (background task â€” unchanged logic)
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 async def process_assessment(run_id: str, request_data: dict):
     import torch
@@ -466,7 +466,7 @@ async def process_assessment(run_id: str, request_data: dict):
         JOB_QUEUE[run_id]['status'] = 'completed'
         JOB_QUEUE[run_id]['artifacts_path'] = str(run_dir)
         JOB_QUEUE[run_id]['result'] = pipeline_output
-        logger.info(f"✓ Assessment {run_id} completed")
+        logger.info(f"âœ“ Assessment {run_id} completed")
 
     except Exception as e:
         logger.error(f"Assessment {run_id} failed: {e}", exc_info=True)
@@ -474,15 +474,15 @@ async def process_assessment(run_id: str, request_data: dict):
         JOB_QUEUE[run_id]['error'] = str(e)
 
 
-# ════════════════════════════════════════════════════════════════════════════
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 # FASTAPI APP + LIFESPAN
 # FIX 4: Lifespan never blocks. Model loads in background thread.
-# ════════════════════════════════════════════════════════════════════════════
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("=" * 60)
-    logger.info("PregnancyBridge Backend API — Starting")
+    logger.info("PregnancyBridge Backend API â€” Starting")
     logger.info(f"  Artifacts : {ARTIFACTS_DIR.absolute()}")
     logger.info(f"  Device    : {MEDGEMMA_DEVICE}")
     logger.info("=" * 60)
@@ -494,14 +494,14 @@ async def lifespan(app: FastAPI):
     logger.info("Launching MedGemma background loader (non-blocking)...")
     loader_thread = load_model_async()
     logger.info(
-        "✅ Server ready. MedGemma loading in background. "
+        "âœ… Server ready. MedGemma loading in background. "
         "Rule-based Safety Net is active immediately."
     )
 
     yield  # Server runs here
 
     logger.info("Shutting down PregnancyBridge Backend API")
-    # Background thread is daemon=True — exits with process automatically
+    # Background thread is daemon=True â€” exits with process automatically
 
 
 app = FastAPI(
@@ -520,9 +520,9 @@ app.add_middleware(
 )
 
 
-# ════════════════════════════════════════════════════════════════════════════
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 # ROUTES
-# ════════════════════════════════════════════════════════════════════════════
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 @app.get("/")
 async def root():
@@ -550,9 +550,9 @@ def health():
     }
 
 
-# ════════════════════════════════════════════════════════════════════════════
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 # FIELD-DEMO ENDPOINT
-# ════════════════════════════════════════════════════════════════════════════
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 @app.post("/api/v1/field-assess")
 def field_assess_risk(request: FieldVisitRequest):
@@ -560,8 +560,8 @@ def field_assess_risk(request: FieldVisitRequest):
     Synchronous single-visit risk assessment for the field demo.
 
     Flow with images:
-      1. OCR → extract_clinical_fields
-      2. If ANY lab value was OCR-extracted → return pending_confirmation
+      1. OCR â†’ extract_clinical_fields
+      2. If ANY lab value was OCR-extracted â†’ return pending_confirmation
          (ANM must confirm via /api/v1/confirm-labs before risk runs)
       3. After confirmation (or if no images): run risk pipeline
     """
@@ -571,7 +571,7 @@ def field_assess_risk(request: FieldVisitRequest):
     fields = {}
     ocr_extracted_any = False
 
-    # ── Step 0: OCR extraction ───────────────────────────────────────────────
+    # â”€â”€ Step 0: OCR extraction â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     if request.images:
         try:
             logger.info(f"OCR: processing {len(request.images)} image(s)")
@@ -607,7 +607,7 @@ def field_assess_risk(request: FieldVisitRequest):
         except Exception as e:
             logger.error(f"OCR extraction error: {e}")
 
-    # ── Step 1: Confirmation gate ────────────────────────────────────────────
+    # â”€â”€ Step 1: Confirmation gate â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     # FIX: Triggers on ANY OCR extraction, not just critical flags.
     # Critical flags additionally get a CRITICAL warning in the response.
     if ocr_extracted_any:
@@ -646,20 +646,20 @@ def field_assess_risk(request: FieldVisitRequest):
             "flags":             meta.get('flags', []),
             "has_critical_flags": meta.get('has_critical_flags', False),
             "message": (
-                "⚠️ CRITICAL values detected — ANM must verify before assessment"
+                "âš ï¸ CRITICAL values detected â€” ANM must verify before assessment"
                 if meta.get('has_critical_flags')
-                else "Lab values extracted — please verify before assessment runs"
+                else "Lab values extracted â€” please verify before assessment runs"
             ),
             "confirm_endpoint":  "/api/v1/confirm-labs",
         }
 
-    # ── If no images: run assessment directly ────────────────────────────────
+    # â”€â”€ If no images: run assessment directly â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     return _run_full_assessment(request, confirmed_fields=None, start_time=start)
 
 
-# ════════════════════════════════════════════════════════════════════════════
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 # FIX 5: CONFIRMATION ENDPOINT (new)
-# ════════════════════════════════════════════════════════════════════════════
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 @app.post("/api/v1/confirm-labs")
 def confirm_labs(body: LabConfirmRequest):
@@ -680,7 +680,7 @@ def confirm_labs(body: LabConfirmRequest):
             detail="Confirmation token not found or already used. Re-upload the image."
         )
 
-    pending = PENDING_CONFIRMATIONS.pop(token)  # consume — one-time use
+    pending = PENDING_CONFIRMATIONS.pop(token)  # consume â€” one-time use
 
     # Check expiry
     if time.time() > pending['expires_at_epoch']:
@@ -710,13 +710,13 @@ def confirm_labs(body: LabConfirmRequest):
         logger.info(f"ANM confirmed Hb={body.confirmed_hemoglobin} g/dL")
 
     elif ocr_fields.get('hemoglobin') is not None:
-        # ANM did not edit → accept OCR value
+        # ANM did not edit â†’ accept OCR value
         request.hemoglobin = ocr_fields['hemoglobin']
         logger.info(f"ANM accepted OCR Hb={ocr_fields['hemoglobin']} g/dL")
 
     if body.confirmed_platelets_per_ul is not None:
         confirmed_fields['platelets'] = body.confirmed_platelets_per_ul
-        logger.info(f"ANM confirmed platelets={body.confirmed_platelets_per_ul}/µL")
+        logger.info(f"ANM confirmed platelets={body.confirmed_platelets_per_ul}/ÂµL")
     # (platelets fed into risk engine via confirmed_fields, not request)
 
     # Apply the four new ANM-verified fields
@@ -739,9 +739,9 @@ def confirm_labs(body: LabConfirmRequest):
     return _run_full_assessment(request, confirmed_fields=confirmed_fields, start_time=start_time)
 
 
-# ════════════════════════════════════════════════════════════════════════════
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 # SHARED ASSESSMENT RUNNER
-# ════════════════════════════════════════════════════════════════════════════
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 def _run_full_assessment(
     request: FieldVisitRequest,
@@ -749,10 +749,10 @@ def _run_full_assessment(
     start_time: float,
 ) -> dict:
     """
-    Core risk assessment pipeline — called by both field_assess_risk
+    Core risk assessment pipeline â€” called by both field_assess_risk
     (no images) and confirm_labs (after ANM confirmation).
     """
-    # ── Patch request with any confirmed/OCR fields not already set ──────────
+    # â”€â”€ Patch request with any confirmed/OCR fields not already set â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     if confirmed_fields:
         if request.hemoglobin is None and confirmed_fields.get('hemoglobin'):
             request.hemoglobin = confirmed_fields['hemoglobin']
@@ -766,12 +766,12 @@ def _run_full_assessment(
             request.bp_systolic = confirmed_fields['bp_systolic']
             request.bp_diastolic = confirmed_fields['bp_diastolic']
 
-    # FIX 6: Platelets from OCR/confirmed fields → risk engine
+    # FIX 6: Platelets from OCR/confirmed fields â†’ risk engine
     platelets_for_engine = (
         confirmed_fields.get('platelets') if confirmed_fields else None
     )
 
-    # ── Build symptoms ────────────────────────────────────────────────────────
+    # â”€â”€ Build symptoms â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     symptom_names = request.symptoms or []
     symptoms_dict = {
         'headache':               'headache'              in symptom_names,
@@ -815,7 +815,7 @@ def _run_full_assessment(
         'platelets':       platelets_for_engine,
     }
 
-    # ── Risk assessment ───────────────────────────────────────────────────────
+    # â”€â”€ Risk assessment â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     try:
         engine = SymptomRiskEngine(log_assessments=False)
         risk_assessment = engine.evaluate_visit([visit], symptom_record)
@@ -839,7 +839,7 @@ def _run_full_assessment(
             continue
         # Skip standalone component entry when the trigger_reason already
         # contains it (i.e. the escalation rule fired and produced a richer
-        # combined string — adding both would create a duplicate).
+        # combined string â€” adding both would create a duplicate).
         if trigger_reason and component_reason in trigger_reason:
             continue
         label = _component_labels.get(component, component.replace('_', ' ').title())
@@ -849,7 +849,7 @@ def _run_full_assessment(
     if other_symptoms_text:
         evidence_summary.append(f"Patient-reported: {other_symptoms_text}")
 
-    # ── MedGemma explanation ──────────────────────────────────────────────────
+    # â”€â”€ MedGemma explanation â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     ai_explanation = None
     try:
         ai_explanation = explain_context(
@@ -862,7 +862,7 @@ def _run_full_assessment(
     except Exception as exc:
         logger.warning(f"explain_context failed: {exc}")
 
-    # ── Recommendations ───────────────────────────────────────────────────────
+    # â”€â”€ Recommendations â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     recommendations = []
     try:
         latest_values = {
@@ -899,9 +899,9 @@ def _run_full_assessment(
     }
 
 
-# ════════════════════════════════════════════════════════════════════════════
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 # EXISTING ENDPOINTS (unchanged logic)
-# ════════════════════════════════════════════════════════════════════════════
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 @app.post("/api/v1/assess-risk", response_model=AssessmentResponse)
 async def assess_risk(request: AssessmentRequest, background_tasks: BackgroundTasks):
@@ -958,3 +958,4 @@ if __name__ == "__main__":
         workers=1,
         log_level="info",
     )
+
